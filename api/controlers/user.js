@@ -1,13 +1,10 @@
-const express = require('express');
-const router = express.Router();
 const mongoose = require('mongoose');
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
 
 const User = require('../models/user');
 
-
-router.post('/signup', (req, res, next) => {
+exports.user_signup = (req, res, next) => {
     User.find({ email: req.body.email })
         .exec()
         .then(user => {
@@ -54,9 +51,9 @@ router.post('/signup', (req, res, next) => {
                 });
             }
         });
-});
+};
 
-router.post('/signin', (req, res, next) => {
+exports.user_signin = (req, res, next) => {
     User.find({ email: req.body.email })
         .exec()
         .then(user => {
@@ -98,6 +95,4 @@ router.post('/signin', (req, res, next) => {
                 error: err
             })
         });
-});
-
-module.exports = router;
+};
